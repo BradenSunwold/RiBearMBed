@@ -1,0 +1,5 @@
+SystemTime.cpp:20:6:static void sys::time::SystemTime::Load(ReadExternalTimer32Bit_t, ReadExternalTimer32Bit_t, long unsigned int)	24	static
+SystemTime.cpp:35:18:static types::TimeCount sys::time::SystemTime::GetTime()	8	static
+SystemTime.cpp:45:18:static types::TimeCount sys::time::SystemTime::GetAtomicTime()	64	static
+SystemTime.cpp:62:6:static void sys::time::SystemTime::CalculateClockResolution()	4	static
+SystemTime.cpp:81:18:static types::TimeCount sys::time::SystemTime::DeGlitchCounts(types::TimeCount, types::TimeCount)	32	static
