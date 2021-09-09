@@ -8,4 +8,16 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+namespace types
+{
+
+typedef enum endian_t
+{
+	little = 0,
+	big = 1
+} endian_t;
+
+void FloatToBytes(float wspd, endian_t endianType, char* buffer, int index);
+}
+
 #endif /* INCLUDE_TYPES_STDTYPEDEFS_HPP_ */

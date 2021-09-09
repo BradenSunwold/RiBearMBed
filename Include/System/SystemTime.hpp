@@ -2,7 +2,7 @@
 #ifndef SYSTEM_SYSTEMTIME_HPP_
 #define SYSTEM_SYSTEMTIME_HPP_
 
-#include <Types/Time.hpp>
+#include <Types/Time/Time.hpp>
 
 // Function pointers for interfacing with external hw/sw timers
 typedef uint32_t (*ReadExternalTimer32Bit_t)();

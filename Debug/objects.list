@@ -1,2 +1,5 @@
+"./Source/Components/SpeedSensor.o"
+"./Source/Messages/Speedometer/DisplayCommandMessage.o"
 "./Source/System/SystemTime.o"
-"./Source/Types/Time.o"
+"./Source/Types/StdTypeDefs.o"
+"./Source/Types/Time/Time.o"
