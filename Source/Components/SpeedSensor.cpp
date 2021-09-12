@@ -1,39 +1,76 @@
 
 #include <Components/SpeedSensor.hpp>
 
+
 SpeedSensor::SpeedSensor()
-	: mWspd(0), mTrip(0), mOdom(0), mFrameTime(0), mPrevDistance(0), mCurrentDistance(0), mWheelCircum(0),
-	  mNumSensors(2), mMileInTicks(0)
+		:
+		mWheelCircum(85),
+		mNumSensors(2),
+		mPreviousTime(0),
+		mTotalTicks(0),
+		mDataInMiles(true),
+		mWspd(0),
+		mTrip(0),
+		mOdom(0)
 {
+	CalculateDistanceInTicks();
 }
 
-SpeedSensor::SpeedSensor(float wspd, int trip, int odom)
-	: mWspd(wspd), mTrip(trip), mOdom(odom), mFrameTime(0), mPrevDistance(0), mCurrentDistance(0),
-	  mWheelCircum(0), mNumSensors(2), mMileInTicks(0)
+SpeedSensor::SpeedSensor(float wspd, uint32_t trip, uint32_t odom)
+		:
+		mWheelCircum(85),
+		mNumSensors(2),
+		mPreviousTime(0),
+		mTotalTicks(0),
+		mDataInMiles(true),
+		mWspd(wspd),
+		mTrip(trip),
+		mOdom(odom)
 {
+	CalculateDistanceInTicks();
 }
 
-// TODO: Update frame time, mMilesInTicks and mWheelCircum to proper default values
-SpeedSensor::SpeedSensor(float wspd, int trip, int odom, int frameTime, float wheelCircum, int numSensors, int mileInTicks)
-	: mWspd(wspd), mTrip(trip), mOdom(odom), mFrameTime(frameTime), mPrevDistance(0), mCurrentDistance(0),
-	  mWheelCircum(wheelCircum), mNumSensors(numSensors), mMileInTicks(mileInTicks)
+SpeedSensor::SpeedSensor(float wheelCircum, int numSensors, types::TimeCount previousTime,
+		 	 	 	 	uint32_t totalTicks, bool dataInMiles, float wspd, uint32_t trip,
+						uint32_t odom)
+		:
+		mWheelCircum(wheelCircum),
+		mNumSensors(numSensors),
+		mPreviousTime(previousTime),
+		mTotalTicks(totalTicks),
+		mDataInMiles(dataInMiles),
+		mWspd(wspd),
+		mTrip(trip),
+		mOdom(odom)
 {
+	CalculateDistanceInTicks();
 }
 
-void SpeedSensor::UpdateInstrumentData(int ticks)
+void SpeedSensor::UpdateInstrumentData(types::TimeCount currentTime)
 {
+	// Update total ticks every time function is called from ISR
+	mTotalTicks++;
+
 	// Update wheel speed
-	mCurrentDistance = (mWheelCircum / mNumSensors) * ticks;
-	mPrevDistance = mCurrentDistance;							// Update previous distance reading
-	mWspd = mCurrentDistance / mFrameTime;
+	float distance = (mWheelCircum/mNumSensors);	// calculate distance between sensors in inches
+	types::TimeCount period = currentTime - mPreviousTime;
+	mWspd = distance / period;
 
-	// Update trip mileage
-	// TODO: Update to deal with int overflow
-	if(mCurrentDistance <= mMileInTicks)
+	// Update previous time
+	mPreviousTime = currentTime;
+
+	if((mPreviousDistance + distance) >= mDistanceUnitInInches)
 	{
+		// Update all trip info since we traveled 1 unit of distance
 		mTrip++;
 		mOdom++;
-		mPrevDistance = 0;
+
+		mPreviousDistance = 0;    // reset previousDistance to 0
+	}
+	else
+	{
+		// Add to previous distance
+		mPreviousDistance =+ distance;
 	}
 }
 
@@ -52,49 +89,19 @@ int SpeedSensor::GetOdom()
 	return mOdom;
 }
 
-void SpeedSensor::SetFrameTime(int frameTime)
+void SpeedSensor::CalculateDistanceInTicks()
 {
-	mFrameTime = frameTime;
+	// If data in miles then calculate how many inches / ticks = 1 mile
+	if(mDataInMiles)
+	{
+		mDistanceUnitInInches = 63360;
+	}
+	else
+	{
+		// else measured in kilometers - calculate inches / ticks = 1 km
+		mDistanceUnitInInches = 39370.1;
+	}
+	mDistanceUnitInTicks = mDistanceUnitInInches / (mWheelCircum / mNumSensors);
 }
-
-//void UpdateInstrumentData(uint32_t* totalTicks, float* wspd, int* odom, int* trip,
-//		float wheelCircum, int numSensors, uint32_t ticks, int tipDistanceInTicks, float frameTime)
-//{
-//	// Update wheel speed
-//	float currDistance = (wheelCircum / numSensors) * ticks;	// calculate distance traveled since last interupt
-//
-//	*wspd = currDistance / frameTime;
-//	*totalTicks = *totalTicks + ticks;		// Calculate the total distance traveled so far in ticks
-//
-//	// Update trip mileage
-//	if(*totalTicks >= tipDistanceInTicks)
-//	{
-//		*trip++;					// Have traveled one unit of distance so increment trip and odom
-//		*odom++;
-//		*totalTicks = 0;
-//	}
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
