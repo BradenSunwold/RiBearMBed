@@ -1,8 +1,13 @@
 SpeedSensor.cpp:5:1:SpeedSensor::SpeedSensor()	16	static
-SpeedSensor.cpp:19:1:SpeedSensor::SpeedSensor(float, uint32_t, uint32_t)	24	static
-SpeedSensor.cpp:33:1:SpeedSensor::SpeedSensor(float, int, types::TimeCount, uint32_t, bool, float, uint32_t, uint32_t)	32	static
-SpeedSensor.cpp:49:6:void SpeedSensor::UpdateInstrumentData(types::TimeCount)	48	static
-SpeedSensor.cpp:77:7:float SpeedSensor::GetWspd()	16	static
-SpeedSensor.cpp:82:5:int SpeedSensor::GetTrip()	16	static
-SpeedSensor.cpp:87:5:int SpeedSensor::GetOdom()	16	static
-SpeedSensor.cpp:92:6:void SpeedSensor::CalculateDistanceInTicks()	16	static
+SpeedSensor.cpp:21:1:SpeedSensor::SpeedSensor(float, uint32_t, uint32_t)	24	static
+SpeedSensor.cpp:37:1:SpeedSensor::SpeedSensor(float, int, uint32_t, bool, uint32_t, float, uint32_t, uint32_t)	32	static
+SpeedSensor.cpp:55:6:void SpeedSensor::UpdateInstrumentData()	24	static
+SpeedSensor.cpp:94:6:void SpeedSensor::IncrementSpeedTicks()	16	static
+SpeedSensor.cpp:99:6:void SpeedSensor::ClearDataRdy()	16	static
+SpeedSensor.cpp:104:6:void SpeedSensor::SetWheelCircum(float)	16	static
+SpeedSensor.cpp:109:6:void SpeedSensor::SetSensorNum(uint16_t)	16	static
+SpeedSensor.cpp:114:6:void SpeedSensor::SetDataInKm(bool)	16	static
+SpeedSensor.cpp:119:6:bool SpeedSensor::GetDataRdy()	16	static
+SpeedSensor.cpp:124:7:float SpeedSensor::GetWspd()	16	static
+SpeedSensor.cpp:129:5:int SpeedSensor::GetTrip()	16	static
+SpeedSensor.cpp:134:5:int SpeedSensor::GetOdom()	16	static

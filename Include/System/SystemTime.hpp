@@ -64,6 +64,24 @@ public:
 	 */
 	static types::TimeCount GetTime();
 
+	/*
+	 *	----------------------------------------------------------------------
+	 *	SystemTime::GetClockResolution()
+	 *
+	 *	Static
+	 *	----------------------------------------------------------------------
+	 *
+	 *	Returns the clock resolution (milli, micro, nano)
+	 *
+	 *	INPUTS:
+	 *		NA
+	 *
+	 *	OUPUTS:
+	 *		types::UnitOfTime - current resolution of clock
+	 *
+	 */
+	static types::UnitOfTime GetClockResolution();
+
 private:
 
 	// Private member variables
@@ -78,6 +96,7 @@ private:
 
 	// Threshold to de-glitch counts
 	static types::TimeCount mDeGlitchThreshold;
+
 
 	// Private member functions
 

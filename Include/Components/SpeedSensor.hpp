@@ -7,12 +7,13 @@
 /*
  * CLASS: SpeedSensor
  *
- *		class to interact with Acewell S-type speed sensor.
- *		Dynamically calculates speed every time speed sensor
- *		passes magnet on wheel.
+ *		class to hold instrument cluster data - works with Acewell S-type
+ *		speed sensor. Calculates speed on set configurable timer interrupt.
+ *		Stores speed, trip and odometer data to send off to IPC
  *
  * NOTE
- * 		- Wheel circumference is passed in inches
+ * 		- Wheel circumference is passed in cm
+ * 		- kph default, mph otherwise
  * 		- TODO: Make odem and trip non-volatile
  */
 class SpeedSensor
@@ -21,35 +22,45 @@ class SpeedSensor
 public:
 	SpeedSensor();
 	SpeedSensor(float wspd, uint32_t trip, uint32_t odom);
-	SpeedSensor( float wheelCircum, int numSensors, types::TimeCount previousTime,
-					uint32_t totalTicks, bool dataInMiles, float wspd, uint32_t trip,
-					uint32_t odom);
+	SpeedSensor( float wheelCircum, int numSensors, uint32_t totalTicks,
+									bool dataInKm, uint32_t timerRateHz, float wspd,
+									uint32_t trip, uint32_t odom);
 
-	void UpdateInstrumentData(types::TimeCount currentTime);
+	// Function to update cluster parameters on timer callback
+	void UpdateInstrumentData();
 
+	// Function to update speed ticks on GPIO interrupt callback
+	void IncrementSpeedTicks();
+
+	// Getters for data items
 	float GetWspd();
 	int GetTrip();
 	int GetOdom();
+	bool GetDataRdy();
+
+	// Setters for sensor / wheel parameters
+	void SetWheelCircum(float newWheelCircum);
+	void SetSensorNum(uint16_t newSensorNum);
+	void SetDataInKm(bool dataInKm);
+	void ClearDataRdy();
 
 private:
 
 	// Private member variables
-	float mWheelCircum;
-	int mNumSensors;
-	int mDistanceUnitInTicks;
-	float mDistanceUnitInInches;
-	float mPreviousDistance;
-	types::TimeCount mPreviousTime;
-	uint32_t mTotalTicks;
+	float mWheelCircum;					// Wheel circumference in cm
+	uint16_t mNumSensors;				// Number of magnets on wheel (default = 1)
+	bool mDataInKm;						// Default to data in kph, otherwise assumed mph
 
-	bool mDataInMiles;
+	uint32_t mSensorTicks;				// Track how many sensor ticks
+	uint32_t mTickOverflow;				// Value to track ticks between timer interrupts if necessary
+	uint32_t mTimerRateInHz;			// Rate of timer interrupt for speed calculation
+
+	float mLastDistance;
+	bool mDataRdy;
 
 	float mWspd;
 	uint32_t mTrip;
 	uint32_t mOdom;
-
-	// Private member functions
-	void CalculateDistanceInTicks();
 
 };
 

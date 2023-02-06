@@ -10,7 +10,6 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include Source/Types/Time/subdir.mk
--include Source/Types/subdir.mk
 -include Source/System/subdir.mk
 -include Source/Messages/Speedometer/subdir.mk
 -include Source/Components/subdir.mk

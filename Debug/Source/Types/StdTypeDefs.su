@@ -1,1 +1,1 @@
-StdTypeDefs.cpp:6:6:void FloatToBytes(float, types::endian_t, char*, int)	40	static
+StdTypeDefs.cpp:7:6:void types::FloatToBytes(float, types::endian_t, char*, int)	48	static

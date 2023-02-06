@@ -1,0 +1,5 @@
+Timer.cpp:6:1:sys::time::Timer::Timer()	16	static
+Timer.cpp:20:7:static sys::time::Timer sys::time::Timer::CreatePeriodicTimer(int, types::UnitOfTime)	32	static
+Timer.cpp:34:7:static sys::time::Timer sys::time::Timer::CreateOneShotTimer(int, types::UnitOfTime)	32	static
+Timer.cpp:48:6:bool sys::time::Timer::TimedOut()	24	static
+Timer.cpp:65:5:int sys::time::Timer::CalculatePeriod(int, types::UnitOfTime)	32	static

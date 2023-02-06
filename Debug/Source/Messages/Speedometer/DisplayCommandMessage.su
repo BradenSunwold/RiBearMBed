@@ -1,6 +1,6 @@
 DisplayCommandMessage.cpp:6:1:DisplayCommandMessage::DisplayCommandMessage()	16	static
 DisplayCommandMessage.cpp:13:1:DisplayCommandMessage::DisplayCommandMessage(float, uint32_t, uint32_t)	24	static
-DisplayCommandMessage.cpp:20:6:void DisplayCommandMessage::Serialize(char*, types::endian_t)	24	static
+DisplayCommandMessage.cpp:20:6:void DisplayCommandMessage::Serialize(char*, types::endian_t)	32	static
 DisplayCommandMessage.cpp:28:6:void DisplayCommandMessage::LoadMessageData(float, uint32_t, uint32_t)	24	static
 DisplayCommandMessage.cpp:35:6:void DisplayCommandMessage::setWspd(float)	16	static
 DisplayCommandMessage.cpp:40:6:void DisplayCommandMessage::setTrip(uint32_t)	16	static
@@ -8,3 +8,5 @@ DisplayCommandMessage.cpp:45:6:void DisplayCommandMessage::setOdom(uint32_t)	16	
 DisplayCommandMessage.cpp:50:7:float DisplayCommandMessage::getWspd()	16	static
 DisplayCommandMessage.cpp:55:10:uint32_t DisplayCommandMessage::getTrip()	16	static
 DisplayCommandMessage.cpp:60:10:uint32_t DisplayCommandMessage::getOdom()	16	static
+StdTypeDefs.hpp:26:6:void types::InsertToByteArray(T, types::endian_t, char*, int, size_t) [with T = float]	56	static
+StdTypeDefs.hpp:26:6:void types::InsertToByteArray(T, types::endian_t, char*, int, size_t) [with T = int]	48	static

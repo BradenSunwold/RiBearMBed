@@ -29,6 +29,5 @@ SUBDIRS := \
 Source/Components \
 Source/Messages/Speedometer \
 Source/System \
-Source/Types \
 Source/Types/Time \
 

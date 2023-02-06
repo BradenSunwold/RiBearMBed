@@ -59,6 +59,16 @@ types::TimeCount SystemTime::GetAtomicTime()
 /*
  * STATIC
  */
+types::UnitOfTime SystemTime::GetClockResolution()
+{
+	return mClockResolution;
+}
+
+// Private
+
+/*
+ * STATIC
+ */
 void SystemTime::CalculateClockResolution()
 {
 	if(mClockFreqInHz >= 1000000000)

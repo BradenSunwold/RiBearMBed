@@ -19,10 +19,10 @@ DisplayCommandMessage::DisplayCommandMessage(float wsp, uint32_t trip, uint32_t 
 
 void DisplayCommandMessage::Serialize(char* buffer, types::endian_t endianType)
 {
-	// Serialize data - float to byte works for uint32_t since both 4 bytes
-	FloatToBytes(mInstrumentData.wspd, endianType, buffer, 0);
-	FloatToBytes(mInstrumentData.trip, endianType, buffer, 4);
-	FloatToBytes(mInstrumentData.odom, endianType, buffer, 8);
+	// Serialize data
+	InsertToByteArray<float>(mInstrumentData.wspd, endianType, buffer, 0, 4);
+	InsertToByteArray<int>(mInstrumentData.trip, endianType, buffer, 4, 4);
+	InsertToByteArray<int>(mInstrumentData.odom, endianType, buffer, 8, 4);
 }
 
 void DisplayCommandMessage::LoadMessageData(float wspd, uint32_t trip, uint32_t odom)

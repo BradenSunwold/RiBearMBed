@@ -5,13 +5,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../Source/System/SystemTime.cpp 
+../Source/System/SystemTime.cpp \
+../Source/System/Timer.cpp 
 
 OBJS += \
-./Source/System/SystemTime.o 
+./Source/System/SystemTime.o \
+./Source/System/Timer.o 
 
 CPP_DEPS += \
-./Source/System/SystemTime.d 
+./Source/System/SystemTime.d \
+./Source/System/Timer.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
